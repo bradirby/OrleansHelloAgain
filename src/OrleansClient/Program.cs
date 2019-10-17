@@ -42,7 +42,7 @@ namespace OrleansClient
         {
             // example of calling grains from the initialized client
             var friend = client.GetGrain<IHello>(0);
-            var response = await friend.SayHello("Good morning, my friend!");
+            var response = await friend.SayHello("Good morning from Console, my friend!");
             Console.WriteLine("\n\n{0}\n\n", response);
         }
     }

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Threading.Tasks;
 using HelloWorld.App;
-using HelloWorld.Grains;
-using Microsoft.Extensions.Logging;
-using Orleans;
-using Orleans.Configuration;
-using Orleans.Hosting;
 
 namespace OrleansSiloHost
 {

@@ -18,11 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.Common", "HelloWorld.Common\HelloWorld.Common.csproj", "{19B7E997-9A2E-4CBC-A0DD-4EF5007132DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorldApi", "HelloWorldApi\HelloWorldApi.csproj", "{C83E4B5A-27EB-4390-B200-8EF3677B8B45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldApi", "HelloWorldApi\HelloWorldApi.csproj", "{C83E4B5A-27EB-4390-B200-8EF3677B8B45}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld.App", "HelloWorld.App\HelloWorld.App.csproj", "{8D9D8FAC-F5EB-4935-8ADB-63A24B9E5750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.App", "HelloWorld.App\HelloWorld.App.csproj", "{8D9D8FAC-F5EB-4935-8ADB-63A24B9E5750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +44,6 @@ Global
 		{C8097F83-2D0E-4FFD-AEAE-AA075141289C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8097F83-2D0E-4FFD-AEAE-AA075141289C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8097F83-2D0E-4FFD-AEAE-AA075141289C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19B7E997-9A2E-4CBC-A0DD-4EF5007132DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19B7E997-9A2E-4CBC-A0DD-4EF5007132DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19B7E997-9A2E-4CBC-A0DD-4EF5007132DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19B7E997-9A2E-4CBC-A0DD-4EF5007132DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C83E4B5A-27EB-4390-B200-8EF3677B8B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C83E4B5A-27EB-4390-B200-8EF3677B8B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C83E4B5A-27EB-4390-B200-8EF3677B8B45}.Release|Any CPU.ActiveCfg = Release|Any CPU

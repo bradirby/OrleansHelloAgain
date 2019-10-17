@@ -31,8 +31,8 @@ namespace HelloWorld.App
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {
-                    options.ClusterId = "dev";
-                    options.ServiceId = "HelloWorldApp";
+                    options.ClusterId = CommonSettings.ClusterId;
+                    options.ServiceId = CommonSettings.ServiceId;
                 })
                 .ConfigureLogging(logging => logging.AddConsole())
                 .Build();
