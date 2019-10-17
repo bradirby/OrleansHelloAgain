@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using HelloWorld.App;
 using HelloWorld.Grains;
 using Microsoft.Extensions.Logging;
 using Orleans;
@@ -20,7 +21,7 @@ namespace OrleansSiloHost
         {
             try
             {
-                var host = await StartSilo();
+                var host = await HelloWorldApp.StartSilo();
                 Console.WriteLine("Press Enter to terminate...");
                 Console.ReadLine();
 
@@ -35,23 +36,5 @@ namespace OrleansSiloHost
             }
         }
 
-        private static async Task<ISiloHost> StartSilo()
-        {
-            // define the cluster configuration
-            var builder = new SiloHostBuilder()
-                .UseLocalhostClustering()
-                .Configure<ClusterOptions>(options =>
-                {
-                    options.ClusterId = "dev";
-                    options.ServiceId = "HelloWorldApp";
-                })
-                .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
-                .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
-                .ConfigureLogging(logging => logging.AddConsole());
-
-            var host = builder.Build();
-            await host.StartAsync();
-            return host;
-        }
     }
 }

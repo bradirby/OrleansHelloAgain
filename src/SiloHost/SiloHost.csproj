@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="2.4.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HelloWorld.App\HelloWorld.App.csproj" />
     <ProjectReference Include="..\HelloWorld.Grains\HelloWorld.Grains.csproj" />
     <ProjectReference Include="..\HelloWorld.Interfaces\HelloWorld.Interfaces.csproj" />
   </ItemGroup>
