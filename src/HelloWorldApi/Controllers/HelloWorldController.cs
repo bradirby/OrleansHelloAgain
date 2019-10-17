@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HelloWorld.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Orleans;
 
 namespace HelloWorldApi.Controllers
 {
@@ -11,17 +14,31 @@ namespace HelloWorldApi.Controllers
     [ApiController]
     public class HelloWorldController : ControllerBase
     {
+        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IClusterClient HelloAppClient;
+
+        public HelloWorldController(ILogger<WeatherForecastController> logger, IClusterClient client)
+        {
+            HelloAppClient = client;
+            _logger = logger;
+        }
+
         // GET: api/HelloWorld
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            // example of calling grains from the initialized client
+            var friend = HelloAppClient.GetGrain<IHello>(0);
+            var response = friend.SayHello("Good morning from API!");
+
+            return new string[] { response.Result };
         }
 
         // GET: api/HelloWorld/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
+
             return "value";
         }
 

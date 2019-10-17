@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using HelloWorld.Grains;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
@@ -10,11 +11,17 @@ using Orleans.Runtime;
 
 namespace HelloWorld.App
 {
-    public class HelloWorldApp
+    public static class HelloWorldApp
     {
 
         const int initializeAttemptsBeforeFailing = 5;
         private static int attempt = 0;
+
+        public static void AddHelloWorldApp(this IServiceCollection services)
+        {
+            var client = StartClientWithRetries();
+            services.AddSingleton<IClusterClient>(client.Result);
+        }
 
         public static async Task<IClusterClient> StartClientWithRetries()
         {
@@ -34,6 +41,8 @@ namespace HelloWorld.App
             Console.WriteLine("Client successfully connect to silo host");
             return client;
         }
+
+
 
         private static async Task<bool> RetryFilter(Exception exception)
         {
