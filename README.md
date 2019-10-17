@@ -1,5 +1,8 @@
 # HelloWorld.NetCore
-Orleans HelloWorld sample targeting .NET Core
+Orleans HelloAgain sample targeting .NET Core.
+This is an enhanced version of the original HelloWorld published by Orleans 2.0.
+I have made changes to make it easier to learn how Orleans works and how to use it.
+Many comments have been added, often copying them from the documentation into the code to make code browsing easier.
 
 ## Build and run the sample in Windows
 The easiest way to build and run the sample in Windows is to execute the `BuildAndRun.ps1` PowerShell script.
