@@ -68,16 +68,45 @@ namespace HelloWorld.App
                 .UseLocalhostClustering()
                 .Configure<ClusterOptions>(options =>
                 {
-                    options.ClusterId = "dev";
-                    options.ServiceId = "HelloWorldApp";
+                    options.ClusterId = CommonSettings.ClusterId;
+                    options.ServiceId = CommonSettings.ServiceId;
                 })
+                .AddMemoryGrainStorageAsDefault(options => options.NumStorageGrains = 10)
+                .ConfigureServices(context => ConfigureDI(context))
                 .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+                .UseInMemoryReminderService()
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole());
+
+
+
+            //var builder = new SiloHostBuilder()
+            //    .UseLocalhostClustering()
+            //    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
+            //    .ConfigureServices(context => ConfigureDI(context))
+            //    .ConfigureLogging(logging => logging.AddConsole())
+            //    .UseInClusterTransactionManager()
+            //    .UseInMemoryTransactionLog()
+            //    .AddAzureTableGrainStorageAsDefault(
+            //        (options) =>
+            //        {
+            //            options.ConnectionString = configuration.GetConnectionString("CosmosBDConnectionString");
+            //            options.UseJson = true;
+            //        })
+            //    .UseTransactionalState();
+
+
 
             var host = builder.Build();
             await host.StartAsync();
             return host;
+        }
+
+        private static IServiceProvider ConfigureDI(IServiceCollection services)
+        {
+           // services.AddSingleton<IServiceBusClient>((sp) => new ServiceBusClient(configuration.GetConnectionString("ServiceBusConnectionString")));
+
+            return services.BuildServiceProvider();
         }
 
 

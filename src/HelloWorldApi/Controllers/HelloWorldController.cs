@@ -14,10 +14,10 @@ namespace HelloWorldApi.Controllers
     [ApiController]
     public class HelloWorldController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<HelloWorldController> _logger;
         private readonly IClusterClient HelloAppClient;
 
-        public HelloWorldController(ILogger<WeatherForecastController> logger, IClusterClient client)
+        public HelloWorldController(ILogger<HelloWorldController> logger, IClusterClient client)
         {
             HelloAppClient = client;
             _logger = logger;

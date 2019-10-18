@@ -1,4 +1,5 @@
-﻿using HelloWorld.Interfaces;
+﻿using System;
+using HelloWorld.Interfaces;
 using Orleans;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace HelloWorld.Grains
 
             await WriteStateAsync();
 
-            return $"You said: '{greeting}', I say: Hello!";
+            return $"You said: '{greeting}', I say: Hello at {DateTime.Now}!";
         }
 
         public Task<IEnumerable<string>> GetGreetings()
