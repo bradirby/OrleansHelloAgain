@@ -51,6 +51,8 @@ namespace HelloWorld.Grains
             return Task.FromResult(State.AccountName);
         }
 
+        public string AcctName => State.AccountName;
+
         private async Task NotifyBalanceUpdate()
         {
             var balanceUpdate = new BalanceUpdateMessage

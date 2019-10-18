@@ -15,5 +15,6 @@ namespace HelloWorld.Interfaces
 
         //[Transaction(TransactionOption.Required)]
         Task<decimal> GetBalance();
+
     }
 }
