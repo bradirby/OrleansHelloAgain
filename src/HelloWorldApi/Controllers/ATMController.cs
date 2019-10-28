@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using HelloWorld.Grains;
 using HelloWorld.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Orleans;
 
 namespace HelloWorldApi.Controllers
@@ -37,28 +32,29 @@ namespace HelloWorldApi.Controllers
 
         // GET: api/ATM/5
         [HttpGet("{srcAcctId}/{destAcctId}/{amt}")]
-        public async Task<string> Get(int srcAcctId, int destAcctId, int amt)
+        public async Task<string> Get(Guid srcAcctId, Guid destAcctId, int amt)
         {
-
             var fromAcctGrain = HelloAppClient.GetGrain<IAccountGrain>(srcAcctId);
             var toAcctGrain = HelloAppClient.GetGrain<IAccountGrain>(destAcctId);
 
-            var fromAcctName = await fromAcctGrain.GetAccountName();
-            var toAcctName = await toAcctGrain.GetAccountName();
+            var fromAcctSummBefore = await fromAcctGrain.GetAccountSummary();
+            if (fromAcctSummBefore.IsNew) throw new ArgumentOutOfRangeException("Account Does Not exist");
 
-            var beforeStr = $"Before {fromAcctName} ({fromAcctGrain.GetBalance().Result}) to {toAcctName} ({toAcctGrain.GetBalance().Result})";
+            var toAcctSummBefore = await toAcctGrain.GetAccountSummary();
+            if (toAcctSummBefore.IsNew) throw new ArgumentOutOfRangeException("Account Does Not exist");
 
-            await fromAcctGrain.Withdraw(amt);
-            await toAcctGrain.Deposit(amt);
+            var beforeStr = $"Summary Before {fromAcctSummBefore.AccountName} ({fromAcctSummBefore.Balance}) to {toAcctSummBefore.AccountName} ({toAcctSummBefore.Balance})";
 
-            Console.WriteLine($"Processed a message from {fromAcctName} to {toAcctName}");
+            var fromAcctSummAfter = await fromAcctGrain.Withdraw(amt);
+            var toAcctSummAfter = await toAcctGrain.Deposit(amt);
+
             await Task.CompletedTask;
 
-            return $"{beforeStr} then Moved {amt} from {fromAcctName} ({fromAcctGrain.GetBalance().Result}) to {toAcctName} ({toAcctGrain.GetBalance().Result})";
+            return $"{beforeStr} then Moved {amt} from {fromAcctSummAfter.AccountName} ({fromAcctSummAfter.Balance}) to {toAcctSummAfter.AccountName} ({toAcctSummAfter.Balance})";
         }
 
         // POST: api/ATM
-        public void Post([FromBody] string value)
+        public void Post([FromBody] string acctName)
         {
         }
 

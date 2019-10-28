@@ -6,9 +6,9 @@ using Orleans;
 
 namespace HelloWorld.Interfaces
 {
-    public interface IATMGrain : IGrainWithIntegerKey
+    public interface IATMGrain : IGrainWithGuidKey
     {
         //[Transaction(TransactionOption.RequiresNew)]
-        Task Transfer(long fromAccount, long toAccount, decimal amountToTransfer);
+        Task Transfer(Guid fromAccount, Guid toAccount, decimal amountToTransfer);
     }
 }

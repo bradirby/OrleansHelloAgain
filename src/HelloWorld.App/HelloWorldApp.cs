@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using HelloWorld.Grains;
+using HelloWorld.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Orleans;
@@ -38,11 +39,15 @@ namespace HelloWorld.App
                 .Build();
 
             await client.Connect(RetryFilter);
+            PopulateTestUsers(client);
             Console.WriteLine("Client successfully connect to silo host");
             return client;
         }
 
-
+        private static void PopulateTestUsers(IClusterClient client)
+        {
+            var usr1 = client.GetGrain<IAccountGrain>(Guid.NewGuid());
+        }
 
         private static async Task<bool> RetryFilter(Exception exception)
         {
@@ -78,25 +83,6 @@ namespace HelloWorld.App
                 .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(HelloGrain).Assembly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseDashboard(options => { });
-
-
-
-            //var builder = new SiloHostBuilder()
-            //    .UseLocalhostClustering()
-            //    .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
-            //    .ConfigureServices(context => ConfigureDI(context))
-            //    .ConfigureLogging(logging => logging.AddConsole())
-            //    .UseInClusterTransactionManager()
-            //    .UseInMemoryTransactionLog()
-            //    .AddAzureTableGrainStorageAsDefault(
-            //        (options) =>
-            //        {
-            //            options.ConnectionString = configuration.GetConnectionString("CosmosBDConnectionString");
-            //            options.UseJson = true;
-            //        })
-            //    .UseTransactionalState();
-
-
 
             var host = builder.Build();
             await host.StartAsync();
